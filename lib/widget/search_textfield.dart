@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SearchTextField extends StatelessWidget {
   const SearchTextField({
@@ -21,12 +22,14 @@ class SearchTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: Theme.of(context)
-              .textTheme
-              .labelLarge!
-              .copyWith(fontWeight: FontWeight.w400),
+          suffixIcon: const Icon(Icons.close),
+          prefixIcon: const Icon(Icons.search),
+          hintStyle: GoogleFonts.poppins(
+            color: Colors.grey.shade500,
+            fontSize: 14,
+          ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: Colors.grey.shade200,
           border: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.white),
             borderRadius: BorderRadius.circular(30),

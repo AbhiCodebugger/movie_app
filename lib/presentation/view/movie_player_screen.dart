@@ -39,18 +39,22 @@ class _MoviePlayerScreenState extends State<MoviePlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: YoutubePlayer(
-          controller: _controller,
-          showVideoProgressIndicator: true,
-          progressIndicatorColor: Colors.orange,
-          onReady: () {},
-          onEnded: (data) {
-            SystemChrome.setPreferredOrientations([
-              DeviceOrientation.portraitUp,
-              DeviceOrientation.portraitDown,
-            ]);
-            Navigator.pop(context);
-          },
+        child: Center(
+          child: YoutubePlayer(
+            controller: _controller,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.orange,
+            onReady: () {
+              _controller.play();
+            },
+            onEnded: (data) {
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.portraitUp,
+                DeviceOrientation.portraitDown,
+              ]);
+              Navigator.pop(context);
+            },
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_app/domain/entity/movie_entity.dart';
 import 'package:movie_app/domain/entity/trailer_entity.dart';
 import 'package:movie_app/presentation/bloc/movie_trailer_bloc.dart';
@@ -34,139 +35,235 @@ class _MovieDetailViewState extends State<MovieDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1E1F27),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              ShaderMask(
-                shaderCallback: (rect) {
-                  return const LinearGradient(
-                    begin: Alignment.bottomCenter,
-                    end: Alignment.topCenter,
-                    colors: [Colors.transparent, Colors.black],
-                  ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height));
-                },
-                blendMode: BlendMode.dstIn,
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: "$image_base_url${widget.movieDetail.image}",
-                  placeholder: (context, url) =>
-                      ClipRRect(child: Image.asset('assets/download.png')),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                ),
-              ),
-              Positioned(
-                top: 30,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
+          Container(
+            height: 500,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                ShaderMask(
+                  shaderCallback: (rect) {
+                    return const LinearGradient(
+                      begin: Alignment.bottomCenter,
+                      end: Alignment.topCenter,
+                      colors: [Colors.black, Colors.transparent],
+                    ).createShader(
+                        Rect.fromLTRB(0, 0, rect.width, rect.height));
                   },
-                  child: Container(
-                      padding: const EdgeInsets.all(12),
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.arrow_back)),
-                ),
-              ),
-              Positioned(
-                  bottom: 10,
-                  child: Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Icon(Icons.star, color: Colors.yellow),
-                            Text(
-                              widget.movieDetail.rating.round().toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Gap(10),
-                      Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 6),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Text(
-                            widget.movieDetail.isAdult ? "+18" : "+13",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(fontWeight: FontWeight.bold),
-                          )),
-                      const Gap(10),
-                    ],
-                  )),
-              Positioned(
-                right: 10,
-                bottom: 10,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                  blendMode: BlendMode.darken,
+                  child: CachedNetworkImage(
+                    width: double.infinity,
+                    fit: BoxFit.fitWidth,
+                    imageUrl: "$image_base_url${widget.movieDetail.image}",
+                    placeholder: (context, url) => ClipRRect(
+                        child: Image.asset('assets/png/download.png')),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
-                  onPressed: () {
-                    if (trailers.isNotEmpty) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              MoviePlayerScreen(trailerEntity: trailers.first),
-                        ),
-                      );
-                    } else {
-                      // Handle the case when no trailers are available
-                    }
-                  },
-                  child: const Text('Watch Trailer'),
                 ),
+                Positioned(
+                  top: 50,
+                  left: 20,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back_ios),
+                    color: Colors.white,
+                  ),
+                ),
+                Positioned(
+                  bottom: 50,
+                  child: Column(
+                    children: [
+                      Text(
+                        "In Theaters ${widget.movieDetail.releaseDate} ",
+                        style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const Gap(10),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  BookTicketView(movie: widget.movieDetail),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 243,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: const Color(0xff61C3F2),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Text(
+                            "Get Tickets",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Gap(8),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MoviePlayerScreen(
+                                    trailerEntity: trailers.first)),
+                          );
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 243,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: const Color(0xff61C3F2),
+                              ),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Watch Trailer",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Gap(20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              "Genres",
+              style: GoogleFonts.poppins(
+                color: const Color(0xff202C43),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
               ),
-            ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Chip(
+                  label: Text(
+                    "Action",
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  backgroundColor: Colors.tealAccent,
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                Chip(
+                  label: Text(
+                    "Thriller",
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  backgroundColor: Colors.pink,
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                Chip(
+                  label: Text("Science",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      )),
+                  backgroundColor: Colors.deepPurpleAccent,
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                Chip(
+                  label: Text("Fiction",
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      )),
+                  backgroundColor: Colors.yellow,
+                  side: BorderSide.none,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+              ],
+            ),
+          ),
+          const Gap(10),
+          Divider(
+            indent: 30,
+            endIndent: 30,
+            color: Colors.black.withOpacity(0.2),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Text(
+              "Overview",
+              style: GoogleFonts.poppins(
+                color: const Color(0xff202C43),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
           Expanded(
-            child: ListView(padding: const EdgeInsets.all(8.0), children: [
-              Text(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: Text(
                 widget.movieDetail.description,
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge
-                    ?.copyWith(color: Colors.white),
+                style: GoogleFonts.poppins(
+                  color: const Color(0xff8F8F8F),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
-            ]),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.white,
-              backgroundColor: Colors.orange,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
             ),
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const BookTicketView()));
-            },
-            child: const Text('Book Ticket'),
-          ),
-          const Gap(10)
+          )
         ],
       ),
     );

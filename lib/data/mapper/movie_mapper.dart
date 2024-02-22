@@ -9,6 +9,7 @@ class MovieMapper {
         description: category.overview ?? "",
         rating: category.voteAverage ?? 0.0,
         image: category.posterPath ?? "",
-        isAdult: category.adult ?? false);
+        isAdult: category.adult ?? false,
+        releaseDate: category.releaseDate ?? "");
   }
 }

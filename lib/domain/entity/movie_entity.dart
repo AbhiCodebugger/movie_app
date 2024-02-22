@@ -5,6 +5,8 @@ class MovieEntity {
   double rating;
   String image;
   bool isAdult;
+  String releaseDate;
+
   MovieEntity({
     required this.movieId,
     required this.title,
@@ -12,5 +14,6 @@ class MovieEntity {
     required this.rating,
     required this.image,
     required this.isAdult,
+    required this.releaseDate,
   });
 }

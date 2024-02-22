@@ -11,6 +11,7 @@ import 'package:movie_app/domain/usecase/search_movie_usecase.dart';
 import 'package:movie_app/domain/usecase/trailer_usecase.dart';
 import 'package:movie_app/presentation/bloc/movie_trailer_bloc.dart';
 import 'package:movie_app/presentation/bloc/search_movie_bloc.dart';
+import 'package:movie_app/presentation/view/bottom_navigation_view.dart';
 import 'package:movie_app/presentation/view/movie_list_view.dart';
 import 'package:movie_app/utils/constants.dart';
 
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
-        home: const MovieListView(),
+        home: const BottomNavigationView(),
       ),
     );
   }
