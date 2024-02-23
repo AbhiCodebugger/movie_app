@@ -48,77 +48,17 @@ class SeatSelectionView extends StatelessWidget {
           Image.asset("assets/png/screen.png"),
           Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.deepOrange,
-                        borderRadius: BorderRadius.circular(4)),
-                  ),
-                  Text(
-                    "Selected",
-                    style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(4)),
-                  ),
-                  Text(
-                    "Not available",
-                    style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+              buildSeatWidget(
+                  text: "Selected",
+                  color: Colors.deepOrange,
+                  color2: Colors.deepPurple,
+                  text2: "Regular(50\$)"),
               const Gap(20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(4)),
-                  ),
-                  Text(
-                    "Vip(150\$)",
-                    style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Container(
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        color: Colors.purple,
-                        borderRadius: BorderRadius.circular(4)),
-                  ),
-                  Text(
-                    "Regular(50\$)",
-                    style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
+              buildSeatWidget(
+                  text: "Vip(150\$)",
+                  color: Colors.blueAccent,
+                  color2: Colors.grey,
+                  text2: "No selected    "),
             ],
           ),
           Align(
@@ -194,6 +134,46 @@ class SeatSelectionView extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  Row buildSeatWidget(
+      {required Color color,
+      required String text,
+      required Color color2,
+      required String text2}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Container(
+          height: 30,
+          width: 30,
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(4)),
+        ),
+        Text(
+          text,
+          style: GoogleFonts.poppins(
+            color: Colors.grey,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Container(
+          height: 30,
+          width: 30,
+          decoration: BoxDecoration(
+              color: color2, borderRadius: BorderRadius.circular(4)),
+        ),
+        Text(
+          text2,
+          style: GoogleFonts.poppins(
+            color: Colors.grey,
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
     );
   }
 }

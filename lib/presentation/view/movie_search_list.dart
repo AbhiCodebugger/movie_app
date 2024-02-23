@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -36,10 +37,18 @@ class _MovieSearchViewState extends State<MovieSearchView> {
             padding: const EdgeInsets.only(top: 30),
             child: SearchTextField(
                 hintText: 'Tv shows, movies, and more',
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    _searchController.clear();
+                  },
+                  icon: const Icon(Icons.close),
+                ),
                 controller: _searchController,
                 onChanged: (movie) {
                   _searchController.text = movie;
-                  context.read<SearchMovieBloc>().add(SearchMovie(movie));
+                  Future.delayed(const Duration(seconds: 1), () {
+                    context.read<SearchMovieBloc>().add(SearchMovie(movie));
+                  });
                   setState(() {});
                 }),
           ),
@@ -100,9 +109,18 @@ class _MovieSearchViewState extends State<MovieSearchView> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(12),
-                              child: Image.network(
-                                "$image_base_url${movie.image}",
+                              child: CachedNetworkImage(
                                 fit: BoxFit.cover,
+                                imageUrl: "$image_base_url${movie.image}",
+                                placeholder: (context, url) => ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    'assets/png/download.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
                                 height: 100,
                                 width: 130,
                               ),

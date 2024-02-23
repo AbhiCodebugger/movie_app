@@ -252,16 +252,18 @@ class _MovieDetailViewState extends State<MovieDetailView> {
             ),
           ),
           Expanded(
-            child: Padding(
+            child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Text(
-                widget.movieDetail.description,
-                style: GoogleFonts.poppins(
-                  color: const Color(0xff8F8F8F),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
+              children: [
+                Text(
+                  widget.movieDetail.description,
+                  style: GoogleFonts.poppins(
+                    color: const Color(0xff8F8F8F),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              ),
+              ],
             ),
           )
         ],

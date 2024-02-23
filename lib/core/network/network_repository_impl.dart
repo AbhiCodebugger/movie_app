@@ -9,6 +9,7 @@ class NetworkRepositoryImpl implements NetworkRepository {
   final Dio _dio;
   final String _base_url;
   NetworkRepositoryImpl(this._dio, this._base_url);
+
   @override
   Future<MovieApiResModel> fetchUpComingMovie(String path) async {
     try {

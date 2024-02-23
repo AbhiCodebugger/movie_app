@@ -10,6 +10,7 @@ import 'package:movie_app/domain/repository/movie_repository.dart';
 class MovieRepositoryImpl implements MovieRepository {
   final NetworkRepository _networkRepository;
   MovieRepositoryImpl(this._networkRepository);
+
   @override
   Future<List<MovieEntity>> fetchUpComingMovie() async {
     try {

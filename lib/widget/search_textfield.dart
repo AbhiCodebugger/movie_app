@@ -6,11 +6,13 @@ class SearchTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     required this.onChanged,
+    required this.suffixIcon,
     super.key,
   });
 
   final TextEditingController controller;
   final String hintText;
+  final Widget suffixIcon;
   final Function(String)? onChanged;
 
   @override
@@ -22,7 +24,7 @@ class SearchTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: hintText,
-          suffixIcon: const Icon(Icons.close),
+          suffixIcon: suffixIcon,
           prefixIcon: const Icon(Icons.search),
           hintStyle: GoogleFonts.poppins(
             color: Colors.grey.shade500,

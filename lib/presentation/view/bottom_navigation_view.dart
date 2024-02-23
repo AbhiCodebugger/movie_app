@@ -11,17 +11,12 @@ class BottomNavigationView extends StatefulWidget {
 
 class _BottomNavigationViewState extends State<BottomNavigationView> {
   int _selectedIndex = 1;
+
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Dashboard',
-    ),
+    Text('Dashboard'),
     MovieListView(),
-    Text(
-      'Media Library',
-    ),
-    Text(
-      'More',
-    ),
+    Text('Media Library'),
+    Text('More'),
   ];
 
   void _onTap(int index) {
